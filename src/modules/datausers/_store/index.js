@@ -1,13 +1,12 @@
 import axios from 'axios'
 
-export const dataUsersModule = {
+export default {
   namespaced: true,
   state: {
     users: []
   },
   getters: {
-    users: state => state.users,
-    getUserById: state => value => state.users.find(user => user.id.value === value)
+    users: state => state.users
   },
   actions: {
     getUsers (state) {

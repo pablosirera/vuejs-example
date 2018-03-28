@@ -1,46 +1,53 @@
 <template>
-  <div>
+  <div v-if="!checkTypeOfUser()" class="container">
     <el-button
       type="danger"
       @click="goBack()"
       round>Volver</el-button>
-    <el-row justify="center">
+    <el-row type="flex" justify="center" class="row-user">
       <el-col :span="12">
-        <el-card :body-style="{ padding: '0px' }">
+        <el-card>
           <img :src="user.picture.large" class="image">
-          <div style="padding: 14px;">
-            <!-- <span>{{ getName(user.name) }}</span> -->
-            <div class="bottom clearfix">
-              <time class="time">{{ user.phone }}</time>
-            </div>
-          </div>
+          <p>
+            <b>Nombre:</b> <span>{{ user.name.first }} {{ user.name.last }}</span>
+          </p>
+          <p>
+            <b>Ciudad:</b> <span>{{ user.location.city }}</span>
+          </p>
+          <p>
+            <b>Teléfono:</b> <span>{{ user.phone }}</span>
+          </p>
         </el-card>
       </el-col>
     </el-row>
-    <pre>{{user}}</pre>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
+  props: {
+    user: {
+      default: null
+    }
+  },
   methods: {
     goBack () {
       this.$router.push('/users')
+    },
+    checkTypeOfUser () {
+      return typeof this.user !== 'object'
     }
   },
   mounted () {
-    if (!this.user) {
+    if (this.checkTypeOfUser()) {
       this.$router.push('/users')
-    }
-  },
-  computed: {
-    ...mapGetters({
-      getUserById: 'dataUsers/getUserById'
-    }),
-    user () {
-      return this.getUserById(this.$route.params.id)
     }
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .row-user {
+    margin-top: 20px
+  }
+</style>

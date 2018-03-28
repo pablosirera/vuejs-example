@@ -11,7 +11,7 @@
             </div>
             <el-button
               type="primary"
-              @click="goToUser(user.id.value)"
+              @click="goToUser(user)"
               plain>Ver Usuario</el-button>
           </div>
         </el-card>
@@ -30,8 +30,8 @@ export default {
     capitalizeFirstLetter (value) {
       return `${value.charAt(0).toUpperCase()}${value.slice(1)}`
     },
-    goToUser (id) {
-      this.$router.push({name: 'user', params: { id: id.toString() }})
+    goToUser (user) {
+      this.$router.push({name: 'user', params: { user }})
     }
   }
 }
